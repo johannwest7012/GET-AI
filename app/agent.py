@@ -226,9 +226,11 @@ Your goal is to streamline the development process for users by accurately trans
 """""
 # %%
 # Initialize the model
+import os 
+ANT_KEY = os.getenv('ANTHROPIC_API_KEY')
 model = ChatAnthropic(
     model="claude-3-5-sonnet-20240620",
-    api_key="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",
+    api_key=ANT_KEY,
     temperature=0
 )
 
