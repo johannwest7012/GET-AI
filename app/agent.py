@@ -227,11 +227,10 @@ Your goal is to streamline the development process for users by accurately trans
 # %%
 # Initialize the model
 import os 
-model = ChatAnthropic(
-    model="claude-3-5-sonnet-20240620",
-    
-    temperature=0
-)
+# model = ChatAnthropic(
+#     model="claude-3-5-sonnet-20240620",
+#     temperature=0
+# )
 
 # Create the agent graph
 graph = create_react_agent(model, tools=[execute_code_with_apis, mock_api_call, get_weather, list_apis], state_modifier=prompt)
