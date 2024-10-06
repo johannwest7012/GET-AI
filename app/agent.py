@@ -227,7 +227,6 @@ Your goal is to streamline the development process for users by accurately trans
 # %%
 # Initialize the model
 import os 
-ANT_KEY = os.getenv('ANTHROPIC_API_KEY')
 model = ChatAnthropic(
     model="claude-3-5-sonnet-20240620",
     
