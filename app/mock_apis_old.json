@@ -1,0 +1,594 @@
+{
+    "apis": [
+      {
+        "name": "User Management API",
+        "version": "1.0",
+        "description": "API for managing user accounts and profiles.",
+        "endpoints": [
+          {
+            "path": "/users",
+            "method": "GET",
+            "description": "Retrieve a list of all users.",
+            "parameters": [
+              {
+                "name": "page",
+                "in": "query",
+                "type": "integer",
+                "required": false,
+                "description": "Page number for pagination. Defaults to 1."
+              },
+              {
+                "name": "limit",
+                "in": "query",
+                "type": "integer",
+                "required": false,
+                "description": "Number of users per page. Defaults to 10."
+              },
+              {
+                "name": "role",
+                "in": "query",
+                "type": "string",
+                "required": false,
+                "description": "Filter users by role (e.g., admin, user)."
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "A list of users.",
+                "body": {
+                  "users": [
+                    {
+                      "id": "user-001",
+                      "name": "John Doe",
+                      "email": "john.doe@example.com",
+                      "role": "admin",
+                      "createdAt": "2024-01-15T08:30:00Z",
+                      "lastLogin": "2024-10-01T12:45:00Z"
+                    },
+                    {
+                      "id": "user-002",
+                      "name": "Jane Smith",
+                      "email": "jane.smith@example.com",
+                      "role": "user",
+                      "createdAt": "2024-02-20T10:15:00Z",
+                      "lastLogin": "2024-09-28T09:20:00Z"
+                    }
+                  ],
+                  "pagination": {
+                    "currentPage": 1,
+                    "totalPages": 5,
+                    "totalUsers": 50
+                  }
+                }
+              },
+              "400": {
+                "description": "Invalid query parameters.",
+                "body": {
+                  "error": "Invalid 'page' parameter. Must be a positive integer."
+                }
+              }
+            }
+          },
+          {
+            "path": "/users/{id}",
+            "method": "GET",
+            "description": "Retrieve detailed information about a specific user by ID.",
+            "parameters": [
+              {
+                "name": "id",
+                "in": "path",
+                "type": "string",
+                "required": true,
+                "description": "Unique identifier of the user."
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Detailed user information.",
+                "body": {
+                  "id": "user-001",
+                  "name": "John Doe",
+                  "email": "john.doe@example.com",
+                  "role": "admin",
+                  "profile": {
+                    "age": 30,
+                    "gender": "male",
+                    "address": "123 Main St, Springfield, USA",
+                    "phone": "+1-555-1234"
+                  },
+                  "preferences": {
+                    "newsletter": true,
+                    "notifications": {
+                      "email": true,
+                      "sms": false
+                    }
+                  },
+                  "createdAt": "2024-01-15T08:30:00Z",
+                  "lastLogin": "2024-10-01T12:45:00Z"
+                }
+              },
+              "404": {
+                "description": "User not found.",
+                "body": {
+                  "error": "User with ID 'user-999' does not exist."
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "Product Catalog API",
+        "version": "1.0",
+        "description": "API for managing product listings and details.",
+        "endpoints": [
+          {
+            "path": "/products",
+            "method": "GET",
+            "description": "Retrieve a list of all products.",
+            "parameters": [
+              {
+                "name": "category",
+                "in": "query",
+                "type": "string",
+                "required": false,
+                "description": "Filter products by category (e.g., Electronics, Home Appliances)."
+              },
+              {
+                "name": "search",
+                "in": "query",
+                "type": "string",
+                "required": false,
+                "description": "Search products by name or description."
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "A list of products.",
+                "body": {
+                  "products": [
+                    {
+                      "id": "prod-101",
+                      "name": "Wireless Mouse",
+                      "description": "Ergonomic wireless mouse with adjustable DPI.",
+                      "price": 29.99,
+                      "category": "Electronics",
+                      "stock": 150,
+                      "images": ["mouse1.jpg", "mouse2.jpg"],
+                      "createdAt": "2024-03-10T11:00:00Z",
+                      "updatedAt": "2024-09-20T14:30:00Z"
+                    },
+                    {
+                      "id": "prod-102",
+                      "name": "Gaming Keyboard",
+                      "description": "Mechanical keyboard with RGB lighting and programmable keys.",
+                      "price": 89.99,
+                      "category": "Electronics",
+                      "stock": 75,
+                      "images": ["keyboard1.jpg", "keyboard2.jpg"],
+                      "createdAt": "2024-04-05T09:45:00Z",
+                      "updatedAt": "2024-10-01T10:15:00Z"
+                    },
+                    {
+                      "id": "prod-103",
+                      "name": "Couch",
+                      "description": "A comfy couch to sit on.",
+                      "price": 239.99,
+                      "category": "Furniture",
+                      "stock": 110,
+                      "images": ["couch.jpg", "couch2.jpg"],
+                      "createdAt": "2024-03-10T11:00:00Z",
+                      "updatedAt": "2024-09-20T14:30:00Z"
+                    },
+                    {
+                      "id": "prod-104",
+                      "name": "Table",
+                      "description": "A sturdy wooden table.",
+                      "price": 39.99,
+                      "category": "Furniture",
+                      "stock": 15,
+                      "images": ["table1.jpg", "table2.jpg"],
+                      "createdAt": "2024-04-05T09:45:00Z",
+                      "updatedAt": "2024-10-01T10:15:00Z"
+                    }
+                  ]
+                }
+              },
+              "400": {
+                "description": "Invalid query parameters.",
+                "body": {
+                  "error": "'category' must be a valid category name."
+                }
+              }
+            }
+          },
+          {
+            "path": "/products/{id}",
+            "method": "GET",
+            "description": "Retrieve detailed information about a specific product by ID.",
+            "parameters": [
+              {
+                "name": "id",
+                "in": "path",
+                "type": "string",
+                "required": true,
+                "description": "Unique identifier of the product."
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Detailed product information.",
+                "body": {
+                  "id": "prod-101",
+                  "name": "Wireless Mouse",
+                  "description": "Ergonomic wireless mouse with adjustable DPI.",
+                  "price": 29.99,
+                  "category": "Electronics",
+                  "stock": 150,
+                  "images": ["mouse1.jpg", "mouse2.jpg"],
+                  "reviews": [
+                    {
+                      "userId": "user-002",
+                      "rating": 4,
+                      "comment": "Very comfortable to use."
+                    },
+                    {
+                      "userId": "user-003",
+                      "rating": 5,
+                      "comment": "Excellent battery life!"
+                    }
+                  ],
+                  "createdAt": "2024-03-10T11:00:00Z",
+                  "updatedAt": "2024-09-20T14:30:00Z"
+                }
+              },
+              "404": {
+                "description": "Product not found.",
+                "body": {
+                  "error": "Product with ID 'prod-999' does not exist."
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "Order Management API",
+        "version": "1.0",
+        "description": "API for managing customer orders.",
+        "endpoints": [
+          {
+            "path": "/orders",
+            "method": "GET",
+            "description": "Retrieve a list of all orders.",
+            "parameters": [
+              {
+                "name": "status",
+                "in": "query",
+                "type": "string",
+                "required": false,
+                "description": "Filter orders by status (e.g., pending, shipped, delivered)."
+              },
+              {
+                "name": "userId",
+                "in": "query",
+                "type": "string",
+                "required": false,
+                "description": "Filter orders by user ID."
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "A list of orders.",
+                "body": {
+                  "orders": [
+                    {
+                      "id": "order-301",
+                      "userId": "user-001",
+                      "products": [
+                        {
+                          "productId": "prod-101",
+                          "quantity": 2,
+                          "price": 29.99
+                        },
+                        {
+                          "productId": "prod-102",
+                          "quantity": 1,
+                          "price": 89.99
+                        }
+                      ],
+                      "totalAmount": 149.97,
+                      "status": "pending",
+                      "shippingAddress": "123 Main St, Springfield, USA",
+                      "createdAt": "2024-09-20T10:00:00Z",
+                      "updatedAt": "2024-09-20T10:00:00Z"
+                    },
+                    {
+                      "id": "order-302",
+                      "userId": "user-002",
+                      "products": [
+                        {
+                          "productId": "prod-103",
+                          "quantity": 3,
+                          "price": 15.99
+                        }
+                      ],
+                      "totalAmount": 47.97,
+                      "status": "shipped",
+                      "shippingAddress": "456 Elm St, Metropolis, USA",
+                      "createdAt": "2024-09-22T14:30:00Z",
+                      "updatedAt": "2024-09-23T08:45:00Z"
+                    }
+                  ]
+                }
+              },
+              "400": {
+                "description": "Invalid query parameters.",
+                "body": {
+                  "error": "'status' must be one of [pending, shipped, delivered]."
+                }
+              }
+            }
+          },
+          {
+            "path": "/orders/{id}",
+            "method": "GET",
+            "description": "Retrieve detailed information about a specific order by ID.",
+            "parameters": [
+              {
+                "name": "id",
+                "in": "path",
+                "type": "string",
+                "required": true,
+                "description": "Unique identifier of the order."
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Detailed order information.",
+                "body": {
+                  "id": "order-301",
+                  "userId": "user-001",
+                  "products": [
+                    {
+                      "productId": "prod-101",
+                      "quantity": 2,
+                      "price": 29.99
+                    },
+                    {
+                      "productId": "prod-102",
+                      "quantity": 1,
+                      "price": 89.99
+                    }
+                  ],
+                  "totalAmount": 149.97,
+                  "status": "pending",
+                  "shippingAddress": "123 Main St, Springfield, USA",
+                  "shippingDetails": {
+                    "carrier": "UPS",
+                    "trackingNumber": "1Z999AA10123456784",
+                    "estimatedDelivery": "2024-09-25T00:00:00Z"
+                  },
+                  "createdAt": "2024-09-20T10:00:00Z",
+                  "updatedAt": "2024-09-20T10:00:00Z"
+                }
+              },
+              "404": {
+                "description": "Order not found.",
+                "body": {
+                  "error": "Order with ID 'order-999' does not exist."
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "Inventory Management API",
+        "version": "1.0",
+        "description": "API for managing product inventory and stock levels.",
+        "endpoints": [
+          {
+            "path": "/inventory",
+            "method": "GET",
+            "description": "Retrieve current inventory levels for all products.",
+            "parameters": [
+              {
+                "name": "warehouse",
+                "in": "query",
+                "type": "string",
+                "required": false,
+                "description": "Filter inventory by warehouse location."
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Current inventory levels.",
+                "body": {
+                  "inventory": [
+                    {
+                      "productId": "prod-101",
+                      "warehouse": "W1",
+                      "quantity": 150
+                    },
+                    {
+                      "productId": "prod-102",
+                      "warehouse": "W1",
+                      "quantity": 75
+                    },
+                    {
+                      "productId": "prod-103",
+                      "warehouse": "W2",
+                      "quantity": 200
+                    }
+                  ]
+                }
+              },
+              "400": {
+                "description": "Invalid query parameters.",
+                "body": {
+                  "error": "Warehouse 'W3' does not exist."
+                }
+              }
+            }
+          },
+          {
+            "path": "/inventory/{productId}",
+            "method": "GET",
+            "description": "Retrieve inventory details for a specific product across all warehouses.",
+            "parameters": [
+              {
+                "name": "productId",
+                "in": "path",
+                "type": "string",
+                "required": true,
+                "description": "Unique identifier of the product."
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Inventory details for the specified product.",
+                "body": {
+                  "productId": "prod-101",
+                  "name": "Wireless Mouse",
+                  "inventory": [
+                    {
+                      "warehouse": "W1",
+                      "quantity": 150
+                    },
+                    {
+                      "warehouse": "W2",
+                      "quantity": 50
+                    }
+                  ]
+                }
+              },
+              "404": {
+                "description": "Product not found in inventory.",
+                "body": {
+                  "error": "Inventory for product 'prod-999' does not exist."
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "Analytics API",
+        "version": "1.0",
+        "description": "API for accessing sales and user engagement analytics.",
+        "endpoints": [
+          {
+            "path": "/analytics/sales",
+            "method": "GET",
+            "description": "Retrieve sales data with optional filters.",
+            "parameters": [
+              {
+                "name": "startDate",
+                "in": "query",
+                "type": "string",
+                "required": false,
+                "description": "Start date for sales data (ISO 8601 format)."
+              },
+              {
+                "name": "endDate",
+                "in": "query",
+                "type": "string",
+                "required": false,
+                "description": "End date for sales data (ISO 8601 format)."
+              },
+              {
+                "name": "region",
+                "in": "query",
+                "type": "string",
+                "required": false,
+                "description": "Filter sales data by region (e.g., North America, Europe)."
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Sales analytics data.",
+                "body": {
+                  "totalSales": 12500.75,
+                  "numberOfOrders": 350,
+                  "averageOrderValue": 35.72,
+                  "salesByRegion": {
+                    "North America": 7000.50,
+                    "Europe": 3000.25,
+                    "Asia": 2500.00
+                  },
+                  "salesOverTime": [
+                    {
+                      "date": "2024-09-01",
+                      "sales": 500.75
+                    },
+                    {
+                      "date": "2024-09-02",
+                      "sales": 450.00
+                    },
+                    {
+                      "date": "2024-09-03",
+                      "sales": 600.00
+                    }
+                  ]
+                }
+              },
+              "400": {
+                "description": "Invalid query parameters.",
+                "body": {
+                  "error": "'startDate' must be earlier than 'endDate'."
+                }
+              }
+            }
+          },
+          {
+            "path": "/analytics/users",
+            "method": "GET",
+            "description": "Retrieve user engagement and activity data.",
+            "parameters": [
+              {
+                "name": "activeSince",
+                "in": "query",
+                "type": "string",
+                "required": false,
+                "description": "Retrieve users active since this date (ISO 8601 format)."
+              },
+              {
+                "name": "subscription",
+                "in": "query",
+                "type": "string",
+                "required": false,
+                "description": "Filter users by subscription type (e.g., free, premium)."
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "User analytics data.",
+                "body": {
+                  "totalUsers": 500,
+                  "activeUsers": 320,
+                  "newUsers": 50,
+                  "usersBySubscription": {
+                    "Free": 300,
+                    "Premium": 200
+                  },
+                  "userEngagement": {
+                    "averageSessionsPerUser": 5.4,
+                    "averageSessionDuration": "00:15:30",
+                    "topActivities": ["Login", "View Products", "Add to Cart", "Checkout"]
+                  }
+                }
+              },
+              "400": {
+                "description": "Invalid query parameters.",
+                "body": {
+                  "error": "'activeSince' date format is invalid."
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+  

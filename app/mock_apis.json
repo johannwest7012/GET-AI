@@ -1,0 +1,256 @@
+{
+  "apis": [
+    {
+      "name": "Customer Information API",
+      "description": "API to manage and retrieve customer information.",
+      "base_url": "/customers",
+      "endpoints": [
+        {
+          "path": "/",
+          "method": "GET",
+          "description": "Retrieve a list of all customers or filter customers by specific parameters.",
+          "parameters": {
+            "name": {
+              "description": "Filter by customer name.",
+              "type": "string",
+              "required": false
+            },
+            "email": {
+              "description": "Filter by customer email.",
+              "type": "string",
+              "required": false
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Returns a list of customers matching the given criteria.",
+              "body": [
+                {
+                  "customer_id": "cust-001",
+                  "name": "John Doe",
+                  "email": "john.doe@example.com"
+                },
+                {
+                  "customer_id": "cust-002",
+                  "name": "Jane Smith",
+                  "email": "jane.smith@example.com"
+                }
+              ]
+            },
+            "404": {
+              "description": "No customers found matching the criteria.",
+              "body": {
+                "error": "No customers found."
+              }
+            }
+          }
+        },
+        {
+          "path": "/{customer_id}",
+          "method": "GET",
+          "description": "Retrieve detailed information about a specific customer.",
+          "responses": {
+            "200": {
+              "description": "Details of a customer with the given ID.",
+              "body": {
+                "customer_id": "cust-001",
+                "name": "John Doe",
+                "email": "john.doe@example.com",
+                "phone": "123-456-7890",
+                "address": {
+                  "street": "123 Elm Street",
+                  "city": "Springfield",
+                  "state": "IL",
+                  "zip": "62701"
+                }
+              }
+            },
+            "404": {
+              "description": "Customer not found.",
+              "body": {
+                "error": "Customer ID not found."
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Order Management API",
+      "description": "API to manage and retrieve order information.",
+      "base_url": "/orders",
+      "endpoints": [
+        {
+          "path": "/",
+          "method": "GET",
+          "description": "Retrieve a list of all orders or filter orders by status or customer ID.",
+          "parameters": {
+            "status": {
+              "description": "Filter by order status (e.g., 'shipped', 'pending').",
+              "type": "string",
+              "required": false
+            },
+            "customer_id": {
+              "description": "Filter by customer ID.",
+              "type": "string",
+              "required": false
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Returns a list of orders matching the given criteria.",
+              "body": [
+                {
+                  "order_id": "order-001",
+                  "customer_id": "cust-001",
+                  "status": "shipped",
+                  "total": 99.99
+                },
+                {
+                  "order_id": "order-002",
+                  "customer_id": "cust-002",
+                  "status": "pending",
+                  "total": 25.50
+                }
+              ]
+            },
+            "404": {
+              "description": "No orders found matching the criteria.",
+              "body": {
+                "error": "No orders found."
+              }
+            }
+          }
+        },
+        {
+          "path": "/{order_id}",
+          "method": "GET",
+          "description": "Retrieve detailed information about a specific order.",
+          "responses": {
+            "200": {
+              "description": "Details of a specific order.",
+              "body": {
+                "order_id": "order-001",
+                "customer_id": "cust-001",
+                "status": "shipped",
+                "total": 99.99,
+                "items": [
+                  {
+                    "item_id": "item-001",
+                    "name": "Widget A",
+                    "price": 50.00,
+                    "quantity": 1
+                  },
+                  {
+                    "item_id": "item-002",
+                    "name": "Widget B",
+                    "price": 49.99,
+                    "quantity": 1
+                  }
+                ],
+                "shipping_address": {
+                  "street": "123 Elm Street",
+                  "city": "Springfield",
+                  "state": "IL",
+                  "zip": "62701"
+                },
+                "billing_address": {
+                  "street": "456 Oak Street",
+                  "city": "Springfield",
+                  "state": "IL",
+                  "zip": "62702"
+                }
+              }
+            },
+            "404": {
+              "description": "Order not found.",
+              "body": {
+                "error": "Order ID not found."
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Inventory Management API",
+      "description": "API to manage and retrieve inventory details.",
+      "base_url": "/inventory",
+      "endpoints": [
+        {
+          "path": "/",
+          "method": "GET",
+          "description": "Retrieve a list of all items in inventory or filter items by category or availability.",
+          "parameters": {
+            "category": {
+              "description": "Filter items by category (e.g., 'electronics', 'furniture').",
+              "type": "string",
+              "required": false
+            },
+            "availability": {
+              "description": "Filter items by availability ('in-stock', 'out-of-stock').",
+              "type": "string",
+              "required": false
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Returns a list of items in inventory matching the given criteria.",
+              "body": [
+                {
+                  "item_id": "item-001",
+                  "name": "Widget A",
+                  "category": "electronics",
+                  "price": 50.00,
+                  "stock": 20
+                },
+                {
+                  "item_id": "item-002",
+                  "name": "Widget B",
+                  "category": "furniture",
+                  "price": 150.00,
+                  "stock": 10
+                }
+              ]
+            },
+            "404": {
+              "description": "No items found matching the criteria.",
+              "body": {
+                "error": "No items found."
+              }
+            }
+          }
+        },
+        {
+          "path": "/{item_id}",
+          "method": "GET",
+          "description": "Retrieve detailed information about a specific inventory item.",
+          "responses": {
+            "200": {
+              "description": "Details of a specific item in the inventory.",
+              "body": {
+                "item_id": "item-001",
+                "name": "Widget A",
+                "category": "electronics",
+                "price": 50.00,
+                "stock": 20,
+                "description": "High-quality electronic widget.",
+                "supplier": {
+                  "name": "Widgets Inc.",
+                  "contact": "support@widgetsinc.com",
+                  "phone": "800-123-4567"
+                }
+              }
+            },
+            "404": {
+              "description": "Item not found.",
+              "body": {
+                "error": "Item ID not found."
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

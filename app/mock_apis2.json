@@ -1,0 +1,274 @@
+{
+    "apis": [
+      {
+        "name": "Global Trade API",
+        "version": "1.0",
+        "description": "API for accessing global trade metrics by country or region.",
+        "endpoints": [
+          {
+            "path": "/trade/metrics",
+            "method": "GET",
+            "description": "Retrieve global trade metrics for a specific country or region.",
+            "parameters": [
+              {
+                "name": "country",
+                "in": "query",
+                "type": "string",
+                "required": false,
+                "description": "Filter trade data by country (e.g., USA, China)."
+              },
+              {
+                "name": "region",
+                "in": "query",
+                "type": "string",
+                "required": false,
+                "description": "Filter trade data by region (e.g., North America, Asia)."
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Trade metrics by country or region.",
+                "body": {
+                  "country": "USA",
+                  "exports": 2500000000,
+                  "imports": 2300000000,
+                  "tradeBalance": 200000000,
+                  "topExportPartners": ["Canada", "Mexico", "Germany"],
+                  "topImportPartners": ["China", "Japan", "Germany"]
+                }
+              },
+              "400": {
+                "description": "Invalid query parameters.",
+                "body": {
+                  "error": "'country' or 'region' must be specified."
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "Weather Data API",
+        "version": "1.0",
+        "description": "API for retrieving weather conditions for cities and regions.",
+        "endpoints": [
+          {
+            "path": "/weather",
+            "method": "GET",
+            "description": "Retrieve weather information for a specific city.",
+            "parameters": [
+              {
+                "name": "city",
+                "in": "query",
+                "type": "string",
+                "required": true,
+                "description": "The city for which to retrieve weather data (e.g., New York, San Francisco)."
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Weather information for the specified city.",
+                "body": {
+                  "city": "New York",
+                  "temperature": 22,
+                  "condition": "Sunny",
+                  "humidity": 60,
+                  "windSpeed": 10,
+                  "forecast": [
+                    {
+                      "date": "2024-10-06",
+                      "temperature": 21,
+                      "condition": "Partly Cloudy"
+                    },
+                    {
+                      "date": "2024-10-07",
+                      "temperature": 23,
+                      "condition": "Sunny"
+                    }
+                  ]
+                }
+              },
+              "400": {
+                "description": "Invalid query parameters.",
+                "body": {
+                  "error": "'city' parameter is required."
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "Urban Development API",
+        "version": "1.0",
+        "description": "API for accessing urban development and infrastructure investment data.",
+        "endpoints": [
+          {
+            "path": "/urban/development",
+            "method": "GET",
+            "description": "Retrieve urban development data for a specific city or country.",
+            "parameters": [
+              {
+                "name": "city",
+                "in": "query",
+                "type": "string",
+                "required": false,
+                "description": "The city for which to retrieve urban development data."
+              },
+              {
+                "name": "country",
+                "in": "query",
+                "type": "string",
+                "required": false,
+                "description": "The country for which to retrieve urban development data."
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Urban development data.",
+                "body": {
+                  "city": "San Francisco",
+                  "infrastructureSpending": 500000000,
+                  "newProjects": [
+                    {
+                      "name": "Bay Bridge Expansion",
+                      "budget": 200000000,
+                      "status": "Under Construction",
+                      "completionDate": "2026-12-31"
+                    },
+                    {
+                      "name": "Affordable Housing Initiative",
+                      "budget": 150000000,
+                      "status": "Planning",
+                      "completionDate": "2028-06-30"
+                    }
+                  ],
+                  "populationGrowth": 1.5,
+                  "employmentGrowth": 2.1
+                }
+              },
+              "400": {
+                "description": "Invalid query parameters.",
+                "body": {
+                  "error": "'city' or 'country' must be specified."
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "Supply Chain Disruption API",
+        "version": "1.0",
+        "description": "API for accessing supply chain disruption information.",
+        "endpoints": [
+          {
+            "path": "/supplychain/disruptions",
+            "method": "GET",
+            "description": "Retrieve a list of supply chain disruptions for a specific industry or region.",
+            "parameters": [
+              {
+                "name": "industry",
+                "in": "query",
+                "type": "string",
+                "required": false,
+                "description": "Filter disruptions by industry (e.g., electronics, automotive)."
+              },
+              {
+                "name": "region",
+                "in": "query",
+                "type": "string",
+                "required": false,
+                "description": "Filter disruptions by region (e.g., Asia, Europe)."
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Supply chain disruptions by industry or region.",
+                "body": {
+                  "industry": "electronics",
+                  "region": "Asia",
+                  "disruptions": [
+                    {
+                      "date": "2024-09-15",
+                      "description": "Chip shortage delays production in Taiwan.",
+                      "severity": "high"
+                    },
+                    {
+                      "date": "2024-10-01",
+                      "description": "Port congestion in Singapore delays shipments.",
+                      "severity": "moderate"
+                    }
+                  ]
+                }
+              },
+              "400": {
+                "description": "Invalid query parameters.",
+                "body": {
+                  "error": "'industry' or 'region' must be specified."
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "Hotel Occupancy API",
+        "version": "1.0",
+        "description": "API for retrieving hotel occupancy rates by city or region.",
+        "endpoints": [
+          {
+            "path": "/hotel/occupancy",
+            "method": "GET",
+            "description": "Retrieve hotel occupancy rates for a specific city or region.",
+            "parameters": [
+              {
+                "name": "city",
+                "in": "query",
+                "type": "string",
+                "required": false,
+                "description": "Filter occupancy rates by city."
+              },
+              {
+                "name": "region",
+                "in": "query",
+                "type": "string",
+                "required": false,
+                "description": "Filter occupancy rates by region."
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Hotel occupancy data.",
+                "body": {
+                  "city": "New York",
+                  "occupancyRate": 85.2,
+                  "hotels": [
+                    {
+                      "name": "The Grand Hotel",
+                      "occupancyRate": 90.0,
+                      "totalRooms": 250,
+                      "availableRooms": 25
+                    },
+                    {
+                      "name": "Budget Inn",
+                      "occupancyRate": 80.0,
+                      "totalRooms": 100,
+                      "availableRooms": 20
+                    }
+                  ]
+                }
+              },
+              "400": {
+                "description": "Invalid query parameters.",
+                "body": {
+                  "error": "'city' or 'region' must be specified."
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+  
