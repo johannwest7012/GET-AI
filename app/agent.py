@@ -230,7 +230,7 @@ import os
 ANT_KEY = os.getenv('ANTHROPIC_API_KEY')
 model = ChatAnthropic(
     model="claude-3-5-sonnet-20240620",
-    api_key="",
+    
     temperature=0
 )
 
